@@ -1,0 +1,235 @@
+CREATE TABLE dbo.stores
+(
+	[id] INT NOT NULL IDENTITY(1,1),
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_store_name DEFAULT (''),
+	[phone] VARCHAR(25) NOT NULL CONSTRAINT df_store_phone DEFAULT (''),
+	[email] VARCHAR(50) NOT NULL CONSTRAINT df_store_email DEFAULT (''),
+	[address] VARCHAR(250) NOT NULL CONSTRAINT df_store_address DEFAULT (''),
+	[village] BIGINT NOT NULL CONSTRAINT df_store_village DEFAULT 0,
+	[footer] VARCHAR(500) NOT NULL CONSTRAINT df_store_footerText DEFAULT (''),
+	[logo] IMAGE NULL,
+	CONSTRAINT pk_stores PRIMARY KEY CLUSTERED ([id] ASC)
+);
+INSERT INTO dbo.stores ([name], [phone], [email], [address], [village])
+VALUES ('HAVAS STORE', '0813-3006-2026', 'asgepeng@gmail.com', 'Dsn Sekardangan RT003 RW009', 3505101005);
+CREATE TABLE dbo.users (
+	[id] INT NOT NULL IDENTITY(1,1),
+	[login] VARCHAR(25) NOT NULL CONSTRAINT df_user_login DEFAULT '',
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_user_name DEFAULT '',
+	[password] BINARY(32) NOT NULL,
+	CONSTRAINT pk_users PRIMARY KEY CLUSTERED (id ASC)
+);
+INSERT INTO dbo.users ([login], [name], [password])
+VALUES ('admin', 'Administrator', HASHBYTES('SHA2_256', '12345678'));
+CREATE TABLE dbo.contacts 
+(
+	id INT NOT NULL IDENTITY(1,1),
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_contact_name DEFAULT '',
+	[title] VARCHAR(50) NOT NULL CONSTRAINT df_contact_title DEFAULT '',
+	[organization] VARCHAR(50) NOT NULL CONSTRAINT df_contact_organization DEFAULT '',
+	[type] INT NOT NULL CONSTRAINT df_contact_type DEFAULT 0,
+	[author] INT NOT NULL CONSTRAINT df_contact_author DEFAULT 0,
+	[datecreated] DATETIME NOT NULL CONSTRAINT df_contact_datecreated DEFAULT GETDATE(),
+	[modifier] INT NOT NULL CONSTRAINT df_contact_modifier DEFAULT 0,
+	[datemodified] DATETIME NOT NULL CONSTRAINT df_contact_datemodified DEFAULT '1900-01-01',
+	[deleted] BIT NOT NULL CONSTRAINT df_contact_deleted DEFAULT 0,
+	CONSTRAINT pk_contacts PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE dbo.addresses
+(
+	[id] INT NOT NULL IDENTITY(1,1),
+	[contact] INT NOT NULL CONSTRAINT df_address_contact DEFAULT 0,
+	[streetline] VARCHAR(250) NOT NULL CONSTRAINT df_address_streetline DEFAULT '',
+	[village] BIGINT NOT NULL CONSTRAINT df_address_village DEFAULT 0,
+	[district] INT NOT NULL CONSTRAINT df_address_district DEFAULT 0,
+	[city] INT NOT NULL CONSTRAINT df_address_city DEFAULT 0,
+	[province] INT NOT NULL CONSTRAINT df_address_province DEFAULT 0,
+	[isPrimary] BIT NOT NULL CONSTRAINT df_address_isPrimary DEFAULT 0,
+	CONSTRAINT pk_addresses PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE villages
+(
+	[id] BIGINT NOT NULL,
+	[name] VARCHAR(250) NOT NULL CONSTRAINT df_village_name DEFAULT '',
+	[district] INT NOT NULL CONSTRAINT df_village_district DEFAULT 0,
+	[zipcode] INT NOT NULL CONSTRAINT df_village_zipcode DEFAULT 0,
+	CONSTRAINT pk_villages PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE districts
+(
+	[id] INT NOT NULL,
+	[name] VARCHAR(250) NOT NULL CONSTRAINT df_district_name DEFAULT '',
+	[city] INT NOT NULL CONSTRAINT df_district_city DEFAULT 0,
+	CONSTRAINT pk_districts PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE cities
+(
+	[id] INT NOT NULL,
+	[name] VARCHAR(50) NOT NULL CONSTRAINT df_city_name DEFAULT '',
+	[province] INT NOT NULL CONSTRAINT df_city_province DEFAULT 0,
+	CONSTRAINT pk_cities PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE provinces
+(
+	[id] INT NOT NULL,
+	[name] VARCHAR(250) NOT NULL CONSTRAINT df_province_name DEFAULT '',
+	[country] INT NOT NULL CONSTRAINT df_province_country DEFAULT 0,
+	CONSTRAINT pk_provinces PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE countries
+(
+	[id] INT NOT NULL,
+	[name] VARCHAR(250) NOT NULL CONSTRAINT df_country_name DEFAULT '',
+	[a2code] CHAR(2) NOT NULL CONSTRAINT df_country_a2code DEFAULT '',
+	[a3code] CHAR(3) NOT NULL CONSTRAINT df_country_a3code DEFAULT '',
+	CONSTRAINT pk_countries PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE dbo.phones
+(
+	[id] INT NOT NULL IDENTITY(1,1),
+	[contact] INT NOT NULL CONSTRAINT df_phone_contact DEFAULT 0,
+	[number] VARCHAR(25) NOT NULL CONSTRAINT df_phone_number DEFAULT '',
+	[type] INT NOT NULL CONSTRAINT df_phone_type DEFAULT 0,
+	[isPrimary] BIT NOT NULL CONSTRAINT df_phone_isPrimary DEFAULT 0,
+	CONSTRAINT pk_phones PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE categories
+(
+	id INT NOT NULL IDENTITY(1,1),
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_category_name DEFAULT (''),
+	CONSTRAINT pk_categories PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE products
+(
+	id INT NOT NULL IDENTITY(1,1),
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_product_name DEFAULT (''),
+	[description] VARCHAR(250) NOT NULL CONSTRAINT df_product_description DEFAULT(''),
+	[sku] VARCHAR(25) NOT NULL CONSTRAINT df_product_sku DEFAULT(''),
+	[category] INT NOT NULL CONSTRAINT df_product_category DEFAULT(0),
+	[unit] VARCHAR(15) NOT NULL CONSTRAINT df_product_unit DEFAULT(''),
+	[basicprice] DECIMAL(10,2) NOT NULL CONSTRAINT df_product_basicprice DEFAULT(0),
+	[price] DECIMAL(10,2) NOT NULL CONSTRAINT df_product_price DEFAULT(0),
+	[stock] DECIMAL(10,2) NOT NULL CONSTRAINT df_product_stock DEFAULT (0),
+	[supplier] INT NOT NULL CONSTRAINT df_product_supplier DEFAULT (0),
+	[images] VARCHAR(2000) NOT NULL CONSTRAINT df_product_images DEFAULT(''),
+	[author] INT NOT NULL CONSTRAINT df_product_author DEFAULT (0),
+	[datecreated] DATETIME NOT NULL CONSTRAINT df_product_datecreated DEFAULT GETDATE(),
+	[modifier] INT NULL CONSTRAINT df_product_modifier DEFAULT NULL,
+	[datemodified] DATETIME NULL CONSTRAINT df_product_datemodified DEFAULT NULL,
+	[deleted] BIT NOT NULL CONSTRAINT df_product_deleted DEFAULT(0),
+	CONSTRAINT pk_products PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE autonumbers 
+(
+	[id] INT NOT NULL,
+	[PMB] INT NOT NULL CONSTRAINT pk_autonumber_pmb DEFAULT (1),
+	[PJL] INT NOT NULL CONSTRAINT pk_autonumber_pjl DEFAULT (1),
+	[BH] INT NOT NULL CONSTRAINT pk_autonumber_bh DEFAULT(1),
+	[BP] INT NOT NULL CONSTRAINT pk_autonumber_bp DEFAULT(1),
+	CONSTRAINT pk_autonumbers PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE costs
+(
+	[id] INT NOT NULL IDENTITY(1, 1),
+	[transactionId] INT NOT NULL CONSTRAINT df_cost_transactionId DEFAULT(0),
+	[transactionType] INT NOT NULL CONSTRAINT df_cost_transactioType DEFAULT(0),
+	[notes] VARCHAR(100) NOT NULL CONSTRAINT df_cost_transaction_notes DEFAULT(0),
+	[amount] DECIMAL(10,2) NOT NULL CONSTRAINT df_cost_amount DEFAULT(0),
+	CONSTRAINT pk_costs PRIMARY KEY CLUSTERED (id)
+);
+CREATE TABLE dbo.drafts 
+(	id INT IDENTITY(1,1) NOT NULL,
+	[invoice] CHAR(25) NOT NULL CONSTRAINT df_draftitem_invoice DEFAULT '',
+	[customer] INT NOT NULL CONSTRAINT df_draft_customer DEFAULT 0,
+	[cashier] INT NOT NULL CONSTRAINT df_draft_cashier DEFAULT 0,
+	CONSTRAINT pk_drafts PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE dbo.draftitems
+(
+	id INT NOT NULL IDENTITY(1,1),
+	product INT NOT NULL CONSTRAINT df_draftitem_product DEFAULT 0,
+	qty DECIMAL(10, 2) NOT NULL CONSTRAINT df_draftitem_qty DEFAULT 0,
+	price DECIMAL(10, 2) NOT NULL CONSTRAINT df_draftitem_price DEFAULT 0,
+	discount DECIMAL(10,2) NOT NULL CONSTRAINT df_draftitem_discount DEFAULT 0,
+	CONSTRAINT pk_drafitems PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE dbo.sales 
+(
+	id INT NOT NULL IDENTITY(1,1),
+	invoice CHAR(25) NOT NULL CONSTRAINT df_sale_invoice DEFAULT '',
+	[customer] INT NOT NULL CONSTRAINT df_sale_customer DEFAULT 0,
+	[discount] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_discount DEFAULT 0,
+	[cost] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_cost DEFAULT 0,
+	[tax] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_tax DEFAULT 0,
+	[roundup] DECIMAL (10, 2) NOT NULL CONSTRAINT df_sale_roundup DEFAULT 0,
+	[ambc] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_ambp DEFAULT 0,
+	[tr] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_ac DEFAULT 0,
+	[ar] DECIMAL(10,2) NOT NULL CONSTRAINT df_sale_cashreceipt DEFAULT 0,
+	[dd] DATE NULL,
+	[status] INT NOT NULL CONSTRAINT df_sale_status DEFAULT 0,
+	[author] INT NOT NULL CONSTRAINT df_sale_author DEFAULT 0,
+	[datecreated] DATETIME NOT NULL CONSTRAINT df_sale_datecreated DEFAULT 0,
+	CONSTRAINT pk_sales PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE trantypes 
+(
+	id INT NOT NULL IDENTITY(1, 1),
+	[name] VARCHAR(100) NOT NULL CONSTRAINT df_trantype_name DEFAULT '',
+	CONSTRAINT pk_trantypes PRIMARY KEY CLUSTERED (id ASC)
+);
+INSERT INTO trantypes (name) VALUES ('Pembelian'), ('Penjualan'), ('Stock Opname');
+CREATE TABLE stockflows
+(
+	[id] INT NOT NULL IDENTITY(1, 1),
+	[transactionId] INT NOT NULL,
+	[type] INT NOT NULL,
+	product INT NOT NULL,
+	oldstock INT NOT NULL CONSTRAINT df_stockflow_oldstock DEFAULT 0,
+	debt INT NOT NULL CONSTRAINT df_stockflow_debt DEFAULT 0,
+	credit INT NOT NULL CONSTRAINT df_stockflow_credit DEFAULT 0,
+	newstock INT NOT NULL CONSTRAINT df_stockflow_newstock DEFAULT 0,
+	price DECIMAL(10,2) NOT NULL CONSTRAINT df_stockflow_price DEFAULT(0),
+	oldcogs DECIMAL(10, 2) NOT NULL CONSTRAINT df_stockflow_oldcogs DEFAULT 0,
+	newcogs DECIMAL(10, 2) NOT NULL CONSTRAINT df_stockflow_newcogs DEFAULT 0,
+	CONSTRAINT pk_stockflows PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE cashflows
+(
+	id INT NOT NULL IDENTITY(1,1),
+	[date] DATETIME NOT NULL CONSTRAINT df_cashflow_date DEFAULT GETDATE(),
+	debt DECIMAL(10,2) NOT NULL CONSTRAINT df_cashflow_debt DEFAULT 0,
+	credit DECIMAL(10,2) NOT NULL CONSTRAINT df_cashlow_credit DEFAULT 0,
+	cashier INT NOT NULL CONSTRAINT df_cashflow_cashier DEFAULT 0,
+	CONSTRAINT pk_cashflows PRIMARY KEY CLUSTERED (id ASC)
+);
+CREATE TABLE receipts
+(
+	sale INT NOT NULL,
+	cashflow INT NOT NULL,
+	CONSTRAINT pk_receipts PRIMARY KEY CLUSTERED (sale ASC, cashflow ASC)
+);
+CREATE TABLE payments
+(
+	purchase INT NOT NULL,
+	cashflow INT NOT NULL,
+	CONSTRAINT pk_payments PRIMARY KEY CLUSTERED (purchase ASC, cashflow ASC)
+);
+CREATE TABLE purchases
+(
+	[id] INT NOT NULL IDENTITY(1,1),
+	[invoice] VARCHAR(25) NOT NULL CONSTRAINT df_purchase_number DEFAULT (''),
+	[date] DATETIME NOT NULL CONSTRAINT df_purchase_date DEFAULT GETDATE(),
+	[supplier] INT NOT NULL CONSTRAINT df_purchase_supplier DEFAULT (0),
+	[discount] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_discount DEFAULT(0),
+	[tax] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_tax DEFAULT (0),
+	[cost] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_cost DEFAULT (0),
+	[ambp] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_ambp DEFAULT(0),
+	[tp] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_paid DEFAULT(0),
+	[ap] DECIMAL(10,2) NOT NULL CONSTRAINT df_purchase_ap DEFAULT(0),
+	[dd] DATE NULL,
+	[author] INT NOT NULL CONSTRAINT df_purchase_author DEFAULT (0),
+	[datecreated] DATETIME NOT NULL CONSTRAINT df_purchase_datecreated DEFAULT GETDATE(),
+	[deleted] BIT NOT NULL CONSTRAINT df_purchase_deleted DEFAULT(0),
+	CONSTRAINT pk_purchases PRIMARY KEY CLUSTERED ([id] ASC)
+);
+SELECT * FROM purchases
