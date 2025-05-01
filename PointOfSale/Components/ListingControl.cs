@@ -47,7 +47,6 @@ namespace PointOfSale.Components
             Dock = DockStyle.Fill;
         }
         public IRepository Repository { get; set; }
-
         private async void OnControlLoaded(object sender, EventArgs e)
         {
             var columns = Repository.GetColumns();
@@ -83,24 +82,12 @@ namespace PointOfSale.Components
         private void SetViewMode(int mode)
         {
             var listingMode = mode == 0;
-            btnBack.Available = !listingMode;
             btnAdd.Available = listingMode;
             btnRemove.Available = listingMode;
             btnSave.Available = !listingMode;
             lblSearch.Available = listingMode;
             tbSearch.Available = listingMode;
         }
-        private void BackToList(object sender, EventArgs e)
-        {
-            if (DetailControl != null && Controls.Contains(DetailControl))
-            {
-                Controls.Remove(DetailControl);
-                DetailControl.Dispose();
-                DetailControl = null;
-                SetViewMode(0);
-            }
-        }
-
         private async void SaveData(object sender, EventArgs e)
         {
             if (DetailControl != null)
@@ -151,7 +138,7 @@ namespace PointOfSale.Components
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void OpenCategoryDialog(object sender, EventArgs e)
         {
             var dlg = new CategoryDialog(_db);
             dlg.ShowDialog();
@@ -160,6 +147,25 @@ namespace PointOfSale.Components
         private void FilterOnlyAlphabet(object sender, KeyPressEventArgs e)
         {
             FormatHelpers.FilterOnlyAlphaNumericValue(e);
+        }
+        public bool IsDetailView()
+        {
+            return this.DetailControl != null;
+        }
+        public void BackToList()
+        {
+            if (this.DetailControl != null)
+            {
+                this.Controls.Remove(this.DetailControl);
+                this.DetailControl.Dispose();
+                this.DetailControl = null;
+                this.SetViewMode(0);
+            }
+        }
+
+        private void FilterDataTable(object sender, EventArgs e)
+        {
+            filters.ApplyFilter(bs, this.tbSearch.Text);
         }
     }
 }

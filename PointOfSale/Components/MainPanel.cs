@@ -76,9 +76,16 @@ namespace PointOfSale.Components
             if (Controls.Count > 0)
             {
                 var control = Controls[Controls.Count - 1];
-                Controls.Remove(control);
-                control.Dispose();
-                control = null;
+                if (control is ListingControl listing && listing.IsDetailView())
+                {
+                    listing.BackToList();
+                }
+                else
+                {
+                    Controls.Remove(control);
+                    control.Dispose();
+                    control = null;
+                }
             }
         }
         private string[] labels = new string[]

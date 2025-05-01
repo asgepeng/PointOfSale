@@ -228,7 +228,7 @@ namespace PointOfSale.Components
             {
                 if (this.IsHover)
                 {
-                    DrawRoundedRectangle(g, GetRectangle(), 8, Brushes.Gray);
+                    DrawRoundedRectangle(g, GetRectangle(), 8, Brushes.Silver);
                 }
                 if (this.Icon != null)
                 {

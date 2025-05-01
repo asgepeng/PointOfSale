@@ -65,7 +65,7 @@ namespace PointOfSale.Panels
         {
             if (e.KeyData != Keys.Enter) return;
             PurchaseItem item = null;
-            var qty = int.TryParse(textBox1.Text, out int value) ? value : 1;
+            var qty = 1;
             if (tbBarcode.Text.Trim() != "")
             {                
                 item = await manager.GetPurchaseItemAsync(tbBarcode.Text.Trim(), qty);
@@ -150,6 +150,14 @@ namespace PointOfSale.Panels
                 return;
             }
             if (Purchase.PaidAmount > netto) Purchase.PaidAmount = netto;
+            if (Purchase.PaidAmount < netto)
+            {
+                var ap = netto - Purchase.PaidAmount;
+                if (MessageBox.Show("Transaksi ini akan membentuk hutang sebesar Rp" + ap.ToString("N0") + " kepada " + tbSupplier.Text + ". Yakin tetap lanjutkan transaksi? Klik No untuk membatalkan.", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question)== DialogResult.No)
+                {
+                    return;
+                }
+            }
             var purchase = await manager.CreateAsync(Purchase);
             if (purchase.Id > 0)
             {

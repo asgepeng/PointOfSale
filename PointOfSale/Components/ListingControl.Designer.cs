@@ -34,7 +34,6 @@ namespace PointOfSale.Components
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListingControl));
             this.grid = new System.Windows.Forms.DataGridView();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.btnBack = new System.Windows.Forms.ToolStripButton();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnRemove = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
@@ -69,10 +68,10 @@ namespace PointOfSale.Components
             // 
             // toolStrip
             // 
+            this.toolStrip.BackColor = System.Drawing.Color.WhiteSmoke;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnBack,
             this.btnAdd,
             this.btnRemove,
             this.btnSave,
@@ -84,16 +83,6 @@ namespace PointOfSale.Components
             this.toolStrip.Padding = new System.Windows.Forms.Padding(6);
             this.toolStrip.Size = new System.Drawing.Size(756, 43);
             this.toolStrip.TabIndex = 1;
-            // 
-            // btnBack
-            // 
-            this.btnBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnBack.Image = global::PointOfSale.Properties.Resources.logout;
-            this.btnBack.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(28, 28);
-            this.btnBack.Text = "Kembali";
-            this.btnBack.Visible = false;
             // 
             // btnAdd
             // 
@@ -108,11 +97,12 @@ namespace PointOfSale.Components
             // btnRemove
             // 
             this.btnRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRemove.Image = global::PointOfSale.Properties.Resources.close;
+            this.btnRemove.Image = global::PointOfSale.Properties.Resources.history;
             this.btnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(28, 28);
             this.btnRemove.Text = "Hapus";
+            this.btnRemove.Click += new System.EventHandler(this.DeleteCurrent);
             // 
             // btnSave
             // 
@@ -131,6 +121,7 @@ namespace PointOfSale.Components
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(100, 31);
             this.tbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FilterOnlyAlphabet);
+            this.tbSearch.TextChanged += new System.EventHandler(this.FilterDataTable);
             // 
             // lblSearch
             // 
@@ -141,12 +132,14 @@ namespace PointOfSale.Components
             // 
             // toolStripButton1
             // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Text = "Manage Kategori Produk";
+            this.toolStripButton1.Click += new System.EventHandler(this.OpenCategoryDialog);
             // 
             // ListingControl
             // 
@@ -171,7 +164,6 @@ namespace PointOfSale.Components
         private DataGridView grid;
         private ToolStrip toolStrip;
         private ToolStripButton btnAdd;
-        private ToolStripButton btnBack;
         private ToolStripButton btnSave;
         private ToolStripButton btnRemove;
         private ToolStripTextBox tbSearch;

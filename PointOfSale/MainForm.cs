@@ -33,6 +33,10 @@ namespace PointOfSale
                 this.loginForm.Dispose();
                 this.loginForm = null;
             }
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+
             this.MainPanel = new MainPanel(db);
             this.MainPanel.Dock = DockStyle.Fill;
 

@@ -58,5 +58,24 @@ namespace PointOfSale.UCs
                 this.button1.Enabled = true;
             }
         }
+
+        private void LoginControl_Load_1(object sender, EventArgs e)
+        {
+            this.textBox1.Focus();
+            this.textBox1.KeyDown += (s, evt) =>
+            {
+                if (evt.KeyData == Keys.Enter)
+                {
+                    button1.PerformClick();
+                }
+            };
+            this.textBox2.KeyDown += (s, evt) =>
+            {
+                if (evt.KeyData == Keys.Enter)
+                {
+                    button1.PerformClick();
+                }
+            };
+        }
     }
 }

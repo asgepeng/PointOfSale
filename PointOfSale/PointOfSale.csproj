@@ -318,6 +318,8 @@
     <None Include="Resources\access-control.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\online-shopping.png" />
+    <None Include="Resources\icon-bizmate.png" />
     <Content Include="store.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

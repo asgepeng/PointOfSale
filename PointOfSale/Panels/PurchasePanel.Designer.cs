@@ -55,12 +55,12 @@ namespace PointOfSale.Panels
             this.btnSave = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnSupplier = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblPaidAmount = new System.Windows.Forms.Label();
             this.tbPaidAmount = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tbDate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productSKUDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,9 +95,9 @@ namespace PointOfSale.Panels
             // tbBarcode
             // 
             this.tbBarcode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbBarcode.Location = new System.Drawing.Point(61, 120);
+            this.tbBarcode.Location = new System.Drawing.Point(10, 107);
             this.tbBarcode.Name = "tbBarcode";
-            this.tbBarcode.Size = new System.Drawing.Size(152, 25);
+            this.tbBarcode.Size = new System.Drawing.Size(131, 25);
             this.tbBarcode.TabIndex = 4;
             this.tbBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindProduct);
             // 
@@ -133,12 +133,12 @@ namespace PointOfSale.Panels
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.Info;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.grid.DefaultCellStyle = dataGridViewCellStyle5;
-            this.grid.Location = new System.Drawing.Point(10, 151);
+            this.grid.Location = new System.Drawing.Point(10, 138);
             this.grid.Name = "grid";
             this.grid.RowHeadersVisible = false;
             this.grid.RowTemplate.Height = 26;
             this.grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grid.Size = new System.Drawing.Size(980, 159);
+            this.grid.Size = new System.Drawing.Size(980, 172);
             this.grid.TabIndex = 5;
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.HandleButtonClicked);
             this.grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnGridCellEndEdit);
@@ -305,14 +305,6 @@ namespace PointOfSale.Panels
             this.btnSupplier.UseVisualStyleBackColor = false;
             this.btnSupplier.Click += new System.EventHandler(this.OpenSupplierDialog);
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox1.Location = new System.Drawing.Point(10, 120);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(50, 25);
-            this.textBox1.TabIndex = 19;
-            // 
             // lblPaidAmount
             // 
             this.lblPaidAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -370,6 +362,17 @@ namespace PointOfSale.Panels
             this.label1.Size = new System.Drawing.Size(118, 17);
             this.label1.TabIndex = 26;
             this.label1.Text = "Tanggal Pembelian";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label8.Location = new System.Drawing.Point(147, 110);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(713, 17);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "<= Letakkan cursor disini jika menggunakan barcode scanner, ketik kode barang lal" +
+    "u tekan enter untuk pencarian manual";
             // 
             // productIdDataGridViewTextBoxColumn
             // 
@@ -450,12 +453,12 @@ namespace PointOfSale.Panels
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbDate);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblPaidAmount);
             this.Controls.Add(this.tbPaidAmount);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnSupplier);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnSave);
@@ -503,7 +506,6 @@ namespace PointOfSale.Panels
         private Button btnSave;
         private Button btnPrint;
         private Button btnSupplier;
-        private TextBox textBox1;
         private Label lblPaidAmount;
         private TextBox tbPaidAmount;
         private DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
@@ -517,5 +519,6 @@ namespace PointOfSale.Panels
         private Button button1;
         private TextBox tbDate;
         private Label label1;
+        private Label label8;
     }
 }
